@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('key',100)->unique();
             $table->string('symbol',50);
             $table->string('name',100);
+            $table->string('image',512)->nullable();
+            $table->integer('market_cap_rank')->nullable();
             $table->timestamps();
         });
     }
