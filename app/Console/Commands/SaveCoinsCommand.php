@@ -26,10 +26,10 @@ class SaveCoinsCommand extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle() : void
     {
         if(Coin::all()->count() == 0) {
-            $coins = Http::get("https://api.coingecko.com/api/v3/coins/list")->json();
+            $coins = Http::withoutVerifying()->get("https://api.coingecko.com/api/v3/coins/list")->json();
             foreach($coins as $coin) {
                 Coin::create([
                     'key' => $coin['id'],
@@ -41,16 +41,17 @@ class SaveCoinsCommand extends Command
 
 
         do {
-            $coins = Coin::whereNull('image')->select('key')->limit(500)->get();
+            $coins = Coin::whereNull('market_cap_rank')->select('coin_key')->limit(100)->get();
+
             $coins = $coins->implode('key',',');
-            $data = Http::get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=$coins")->json();
+            $data = Http::withoutVerifying()->get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=$coins")->json();
             Log::info('Running');
             if(isset($data["status"]["error_code"])) {
                 sleep(80);
-                $data = Http::get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=$coins")->json();
+                $data = Http::withoutVerifying()->get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=$coins")->json();
             }
             foreach($data as $coin) {
-                Coin::where('key', $coin['id'])->update([
+                Coin::where('coin_key', $coin['id'])->update([
                     'image' => $coin['image'],
                     'market_cap_rank' => $coin['market_cap_rank']
                 ]);

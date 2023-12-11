@@ -9,5 +9,5 @@ class Coin extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['key','symbol','name','image','market_cap_rank'];
+    protected $fillable = ['coin_key','symbol','name','image','market_cap_rank'];
 }
