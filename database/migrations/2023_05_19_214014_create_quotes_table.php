@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('quotes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('type_dollar_id')->constrained();
+            $table->foreignId('dollar_id')->constrained();
             $table->decimal('price_buy');
             $table->decimal('price_sell');
             $table->timestamps();

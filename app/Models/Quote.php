@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Quote extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'dollar_id','price_buy','price_sell'
+    ];
 }
