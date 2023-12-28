@@ -21,11 +21,4 @@ class Account extends Model
                 ->maxLength(255),
             ];
     }
-
-    public function accountxcoinsxcurrencies(): HasMany
-    {
-        return $this->hasMany(AccountXCoinxCurrency::class);
-    }
-
-
 }

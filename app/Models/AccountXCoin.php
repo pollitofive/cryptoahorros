@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class AccountXCoinXCurrency extends Model
+class AccountXCoin extends Model
 {
-    protected $table = 'accounts_x_coins_x_currencies';
+    protected $table = 'accounts_x_coins';
 
     protected $guarded = [];
 
@@ -23,8 +23,5 @@ class AccountXCoinXCurrency extends Model
         return $this->BelongsTo(Coin::class)->whereNotNull('coins.market_cap_rank')->orderBy('coins.market_cap_rank');
     }
 
-    public function currency(): BelongsTo
-    {
-        return $this->BelongsTo(Currency::class);
-    }
+
 }

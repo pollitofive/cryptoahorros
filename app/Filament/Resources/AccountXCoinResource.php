@@ -5,7 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\AccountXCoinxCurrencyResource\Pages;
 use App\Filament\Resources\AccountXCoinxCurrencyResource\RelationManagers;
 use App\Models\Account;
-use App\Models\AccountXCoinxCurrency;
+use App\Models\AccountXCoin;
 use App\Models\Coin;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
@@ -13,14 +13,16 @@ use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\ViewColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class AccountXCoinxCurrencyResource extends Resource
+class AccountXCoinResource extends Resource
 {
-    protected static ?string $model = AccountXCoinxCurrency::class;
-    protected static ?string $label = "Amount";
+    protected static ?string $model = AccountXCoin::class;
+    protected static ?string $label = "Coins";
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -45,11 +47,6 @@ class AccountXCoinxCurrencyResource extends Resource
                         $label .= "{$record->name} ({$record->symbol})";
                         return $label;
                     }),
-                Select::make('currency_id')
-                    ->label('Currency')
-                    ->preload()
-                    ->searchable()
-                    ->relationship('currency', 'name'),
                 Forms\Components\TextInput::make('amount')
                     ->required()
             ]);
@@ -61,10 +58,7 @@ class AccountXCoinxCurrencyResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('account.name')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('coin.name')
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('currency.name')
-                    ->sortable(),
+                ViewColumn::make('Coin')->view('filament.tables.columns.coin-with-image'),
                 Tables\Columns\TextColumn::make('amount')
                     ->numeric()
             ])
