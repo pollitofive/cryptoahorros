@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('coins', function (Blueprint $table) {
+        Schema::create('currencies', function (Blueprint $table) {
             $table->id();
-            $table->string('coin_key',100)->unique();
-            $table->string('symbol',50);
-            $table->string('name',100);
-            $table->string('image',512)->nullable();
-            $table->integer('market_cap_rank')->nullable();
+            $table->string('name');
+            $table->string('symbol');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('coins');
+        Schema::dropIfExists('currencies');
     }
 };

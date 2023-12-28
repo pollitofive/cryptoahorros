@@ -19,11 +19,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'damianladiani@gmail.com',
             'password' => bcrypt('123456'),
         ]);
-        // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $this->call(DollarsSeeder::class);
+        $this->call(CurrencySeeder::class);
     }
 }

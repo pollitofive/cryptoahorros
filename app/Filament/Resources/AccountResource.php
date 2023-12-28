@@ -22,13 +22,9 @@ class AccountResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('url')
-                    ->maxLength(255),
-            ]);
+            ->schema(
+                Account::getForm()
+            );
     }
 
     public static function table(Table $table): Table
