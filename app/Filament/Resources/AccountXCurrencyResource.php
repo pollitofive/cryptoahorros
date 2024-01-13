@@ -19,9 +19,9 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class AccountXCurrencyResource extends Resource
 {
     protected static ?string $model = AccountXCurrency::class;
-    protected static ?string $label = "Currencies";
+    protected static ?string $label = "My Currencies";
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-banknotes';
 
     public static function form(Form $form): Form
     {

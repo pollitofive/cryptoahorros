@@ -3,27 +3,22 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\AccountXCoinxCurrencyResource\Pages;
-use App\Filament\Resources\AccountXCoinxCurrencyResource\RelationManagers;
 use App\Models\Account;
 use App\Models\AccountXCoin;
 use App\Models\Coin;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
-use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\ViewColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class AccountXCoinResource extends Resource
 {
     protected static ?string $model = AccountXCoin::class;
-    protected static ?string $label = "Coins";
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $label = "My Coins";
+    protected static ?string $navigationIcon = 'heroicon-o-currency-dollar';
 
     public static function form(Form $form): Form
     {
@@ -55,12 +50,30 @@ class AccountXCoinResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->poll('10s')
             ->columns([
                 Tables\Columns\TextColumn::make('account.name')
                     ->sortable(),
                 ViewColumn::make('Coin')->view('filament.tables.columns.coin-with-image'),
                 Tables\Columns\TextColumn::make('amount')
-                    ->numeric()
+                    ->numeric(),
+                Tables\Columns\TextColumn::make('Current price')
+                    ->state(function (AccountXCoin $record): string  {
+                        return 'USD '.number_format($record->coin->current_price,2);
+                    })
+                    ->numeric(),
+                Tables\Columns\TextColumn::make('Total By Coin')
+                    ->state(function (AccountXCoin $record): string  {
+                        return 'USD '.number_format($record->amount * $record->coin->current_price,2);
+                    })
+                ->summarize(Tables\Columns\Summarizers\Summarizer::make()
+                    ->label('Sum total of coins')
+                    ->using(function () {
+                        return "USD " . number_format(Coin::getSumAmountByPriceOfCoin(),2);
+                    })
+                )
+
+
             ])
             ->filters([
                 //
