@@ -9,11 +9,11 @@ use Filament\Resources\Pages\EditRecord;
 class EditAccountXCoinxCurrency extends EditRecord
 {
     protected static string $resource = AccountXCoinResource::class;
+    protected static ?string $title = "Edit Coin";
 
-    protected function getHeaderActions(): array
+
+    protected function getRedirectUrl(): string
     {
-        return [
-            Actions\DeleteAction::make(),
-        ];
+        return $this->getResource()::getUrl('index');
     }
 }

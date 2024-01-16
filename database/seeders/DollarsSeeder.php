@@ -14,22 +14,27 @@ class DollarsSeeder extends Seeder
     {
         DB::table('dollars')->insert([
             'description' => 'Dolar oficial',
+            'category' => 'valores_principales',
             'key' => 'casa349'
         ]);
         DB::table('dollars')->insert([
             'description' => 'Dolar blue',
-            'key' => 'casa310'
+            'category' => 'Blue',
+            'key' => 'casa380'
         ]);
         DB::table('dollars')->insert([
             'description' => 'Dolar contado con liqui',
+            'category' => 'valores_principales',
             'key' => 'casa312'
         ]);
         DB::table('dollars')->insert([
             'description' => 'Dolar bolsa',
+            'category' => 'valores_principales',
             'key' => 'casa313'
         ]);
         DB::table('dollars')->insert([
             'description' => 'Dolar turista',
+            'category' => 'valores_principales',
             'key' => 'casa406'
         ]);
     }

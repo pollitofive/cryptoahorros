@@ -16,9 +16,9 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class AccountResource extends Resource
 {
     protected static ?string $model = Account::class;
+    protected static ?string $label = "My Accounts";
 
     protected static ?string $navigationIcon = 'heroicon-o-user-circle';
-    protected static ?string $label = "My Accounts";
 
     public static function form(Form $form): Form
     {
@@ -35,11 +35,12 @@ class AccountResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('url')
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: false),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
@@ -54,6 +55,7 @@ class AccountResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make()->recordTitle("Account"),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

@@ -31,7 +31,8 @@ class DollarInformation implements DollarInformationContract
         $array = [];
         foreach($type_dollars as $type) {
             $key = $type->key;
-            $array[$type->id] = $data->valores_principales->$key;
+            $field = $type->category;
+            $array[$type->id] = $data->$field->$key;
         }
         $this->cleaned_data = $array;
     }
@@ -39,17 +40,22 @@ class DollarInformation implements DollarInformationContract
     public function save() : void
     {
         foreach($this->cleaned_data as $dollar_id => $element) {
-            $price_buy = str_replace(',', '.', $element->compra);
-            $price_buy = is_numeric($price_buy) ? $price_buy : 0;
 
-            $price_sell = str_replace(',', '.', $element->venta);
-            $price_sell = is_numeric($price_sell) ? $price_sell : 0;
+            $element = json_decode(json_encode($element));
+            if(is_object($element)) {
+                $price_buy = (float) str_replace('.', '', $element->compra);
+                $price_sell = (float) str_replace('.', '', $element->venta);
 
-            $quote = new Quote();
-            $quote->dollar_id = $dollar_id;
-            $quote->price_buy = $price_buy;
-            $quote->price_sell = $price_sell;
-            $quote->save();
+                if($element->nombre === 'Blue') {
+                    $price_buy = (float) str_replace('.', '', $element->compra);
+                    $price_sell = (float) str_replace('.', '', $element->venta);
+                }
+                $quote = new Quote();
+                $quote->dollar_id = $dollar_id;
+                $quote->price_buy = $price_buy;
+                $quote->price_sell = $price_sell;
+                $quote->save();
+            }
         }
     }
 }

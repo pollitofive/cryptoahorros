@@ -9,13 +9,8 @@ use Filament\Resources\Pages\EditRecord;
 class EditAccount extends EditRecord
 {
     protected static string $resource = AccountResource::class;
+    protected static ?string $title = "Edit Account";
 
-    protected function getHeaderActions(): array
-    {
-        return [
-            Actions\DeleteAction::make(),
-        ];
-    }
 
     protected function getRedirectUrl(): string
     {
