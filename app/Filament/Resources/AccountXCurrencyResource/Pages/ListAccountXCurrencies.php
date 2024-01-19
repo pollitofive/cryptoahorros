@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\AccountXCurrencyResource\Pages;
 
 use App\Filament\Resources\AccountXCurrencyResource;
+use App\Filament\Resources\AccountXCurrencyResource\Widgets\DollarPriceOverview;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
@@ -15,6 +16,13 @@ class ListAccountXCurrencies extends ListRecords
         return [
             Actions\CreateAction::make()
                 ->label('New Currency'),
+        ];
+    }
+
+    public function getHeaderWidgets(): array
+    {
+        return [
+            DollarPriceOverview::class
         ];
     }
 }

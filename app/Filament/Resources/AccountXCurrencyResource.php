@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\AccountXCurrencyResource\Pages;
+use App\Filament\Resources\AccountXCurrencyResource\Widgets\DollarPriceOverview;
 use App\Models\Account;
 use App\Models\AccountXCurrency;
 use App\Models\Currency;
@@ -55,8 +56,14 @@ class AccountXCurrencyResource extends Resource
                     })
                     ->numeric(),
                 Tables\Columns\TextColumn::make('In Dollars')
+                    ->tooltip(function($record)
+                    {
+                        if($record->currency->symbol == 'AR$') {
+                            return "For exchange, we use Dolar Blue Compra";
+                        }
+                    })
                     ->state(function (AccountXCurrency $record): string  {
-                        $price_buy = Quote::select('price_buy')->where('dollar_id',2)->orderBy('created_at','desc')->first()->price_buy;
+                        $price_buy = Quote::getCurrentPriceByDollar(2)->price_buy;
                         if($record->currency->symbol == 'USD') {
                             return 'USD ' . number_format($record->amount,2);
                         }
@@ -100,4 +107,5 @@ class AccountXCurrencyResource extends Resource
             'edit' => Pages\EditAccountXCurrency::route('/{record}/edit'),
         ];
     }
+
 }
