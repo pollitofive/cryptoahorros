@@ -49,11 +49,13 @@ class AccountXCurrencyResource extends Resource
                 Tables\Columns\TextColumn::make('account.name')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('currency.name')
-                    ->sortable(),
+                    ->sortable()
+                    ->alignCenter(),
                 Tables\Columns\TextColumn::make('amount')
                     ->state(function(AccountXCurrency $record): string {
                         return $record->currency->symbol . ' ' . number_format($record->amount,2);
                     })
+                    ->alignRight()
                     ->numeric(),
                 Tables\Columns\TextColumn::make('In Dollars')
                     ->tooltip(function($record)
@@ -61,6 +63,8 @@ class AccountXCurrencyResource extends Resource
                         if($record->currency->symbol == 'AR$') {
                             return "For exchange, we use Dolar Blue Compra";
                         }
+
+                        return "";
                     })
                     ->state(function (AccountXCurrency $record): string  {
                         $price_buy = Quote::getCurrentPriceByDollar(2)->price_buy;
@@ -71,6 +75,7 @@ class AccountXCurrencyResource extends Resource
                         return 'USD ' . number_format($record->amount / $price_buy,2);
                     })
                     ->numeric()
+                    ->alignRight()
                     ->summarize(Tables\Columns\Summarizers\Summarizer::make()
                         ->label('Sum total in dollars')
                         ->using(function () {

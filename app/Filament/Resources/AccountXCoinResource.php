@@ -56,24 +56,26 @@ class AccountXCoinResource extends Resource
                     ->sortable(),
                 ViewColumn::make('Coin')->view('filament.tables.columns.coin-with-image'),
                 Tables\Columns\TextColumn::make('amount')
-                    ->numeric(),
+                    ->state(function (AccountXCoin $record): string  {
+                        return number_format($record->amount, 2);
+                    })
+                    ->alignRight(),
                 Tables\Columns\TextColumn::make('Current price')
                     ->state(function (AccountXCoin $record): string  {
                         return 'USD '.number_format($record->coin->current_price,2);
                     })
-                    ->numeric(),
+                    ->alignRight(),
                 Tables\Columns\TextColumn::make('Total By Coin')
                     ->state(function (AccountXCoin $record): string  {
                         return 'USD '.number_format($record->amount * $record->coin->current_price,2);
                     })
-                ->summarize(Tables\Columns\Summarizers\Summarizer::make()
-                    ->label('Sum total of coins')
-                    ->using(function () {
-                        return "USD " . number_format(Coin::getSumAmountByPriceOfCoin(),2);
-                    })
-                )
-
-
+                    ->alignRight()
+                    ->summarize(Tables\Columns\Summarizers\Summarizer::make()
+                        ->label('Sum total of coins')
+                        ->using(function () {
+                            return "USD " . number_format(Coin::getSumAmountByPriceOfCoin(),2);
+                        })
+                    )
             ])
             ->filters([
                 //
