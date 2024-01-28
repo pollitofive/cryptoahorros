@@ -25,7 +25,10 @@ class Coin extends Model
 
     public static function getSumAmountByPriceOfCoin(): string
     {
-        $accounts_by_coins = AccountXCoin::get();
+        $accounts_by_coins = AccountXCoin::join('accounts','accounts_x_coins.account_id','accounts.id')
+            ->where('user_id',auth()->id())
+            ->get();
+
         $total = 0;
         foreach($accounts_by_coins as $account_by_coin) {
             $total += $account_by_coin->amount * $account_by_coin->coin->current_price;

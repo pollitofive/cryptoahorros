@@ -14,6 +14,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class AccountXCurrencyResource extends Resource
 {
@@ -30,7 +31,7 @@ class AccountXCurrencyResource extends Resource
                     ->label('Account')
                     ->searchable()
                     ->preload()
-                    ->relationship('account', 'name')
+                    ->relationship('account', 'name', fn (Builder $query) => $query->where('user_id', auth()->id()))
                     ->createOptionForm(Account::getForm()),
                 Select::make('currency_id')
                     ->label('Currency')
@@ -111,6 +112,13 @@ class AccountXCurrencyResource extends Resource
             'create' => Pages\CreateAccountXCurrency::route('/create'),
             'edit' => Pages\EditAccountXCurrency::route('/{record}/edit'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->join('accounts', 'accounts_x_currencies.account_id', '=', 'accounts.id')
+            ->where('user_id', auth()->id());
     }
 
 }

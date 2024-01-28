@@ -13,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\ViewColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class AccountXCoinResource extends Resource
 {
@@ -28,7 +29,7 @@ class AccountXCoinResource extends Resource
                     ->label('Account')
                     ->searchable()
                     ->preload()
-                    ->relationship('account', 'name')
+                    ->relationship('account', 'name', fn (Builder $query) => $query->where('user_id', auth()->id()))
                     ->createOptionForm(Account::getForm()),
                 Select::make('coin_id')
                     ->label('Coin')
@@ -105,5 +106,12 @@ class AccountXCoinResource extends Resource
             'create' => Pages\CreateAccountXCoinxCurrency::route('/create'),
             'edit' => Pages\EditAccountXCoinxCurrency::route('/{record}/edit'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->join('accounts', 'accounts_x_coins.account_id', '=', 'accounts.id')
+            ->where('user_id', auth()->id());
     }
 }

@@ -11,7 +11,16 @@ class Account extends Model
 {
     protected $guarded = [];
 
-    public static function getForm(): array
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function (Account $account) {
+            $account->user_id = auth()->id();
+        });
+    }
+
+        public static function getForm(): array
     {
         return [
             TextInput::make('name')

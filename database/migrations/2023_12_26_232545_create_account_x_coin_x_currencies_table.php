@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create('accounts_x_coins', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Account::class);
-            $table->foreignIdFor(Coin::class)->nullable();;
+            $table->foreignIdFor(Coin::class)->nullable();
             $table->decimal('amount', 20, 8);
             $table->timestamps();
             $table->softDeletes();
