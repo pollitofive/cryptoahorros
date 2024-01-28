@@ -22,6 +22,7 @@ class DollarInformation implements DollarInformationContract
     {
         $data = Http::withoutVerifying()->get($this->getUrlApi());
         $this->data = simplexml_load_string($data->body());
+//        dd($this->data->Capital_Federal->casa6);
     }
 
     public function cleanData() : void
@@ -40,16 +41,17 @@ class DollarInformation implements DollarInformationContract
     public function save() : void
     {
         foreach($this->cleaned_data as $dollar_id => $element) {
-
             $element = json_decode(json_encode($element));
             if(is_object($element)) {
                 $price_buy = (float) str_replace('.', '', $element->compra);
                 $price_sell = (float) str_replace('.', '', $element->venta);
 
                 if($element->nombre === 'Blue') {
-                    $price_buy = (float) str_replace('.', '', $element->compra);
-                    $price_sell = (float) str_replace('.', '', $element->venta);
+                    $price_buy = (float) str_replace(',', '', $element->compra);
+                    $price_sell = (float) str_replace(',', '', $element->venta);
                 }
+
+//                dump($element->nombre, $price_buy, $price_sell);
                 $quote = new Quote();
                 $quote->dollar_id = $dollar_id;
                 $quote->price_buy = $price_buy;
