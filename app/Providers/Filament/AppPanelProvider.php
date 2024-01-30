@@ -2,6 +2,8 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Auth\Login;
+use App\Filament\Auth\Register;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -25,8 +27,8 @@ class AppPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('/')
-            ->login()
-            ->registration()
+            ->login(Login::class)
+            ->registration(Register::class)
             ->passwordReset()
             ->emailVerification()
             ->colors([
