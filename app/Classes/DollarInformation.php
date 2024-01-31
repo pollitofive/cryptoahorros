@@ -42,15 +42,15 @@ class DollarInformation implements DollarInformationContract
     {
         foreach($this->cleaned_data as $dollar_id => $element) {
             $element = json_decode(json_encode($element));
-//            dump($element);
+            dump($element);
             if(is_object($element)) {
                 $price_buy = (float) str_replace('.', '', $element->compra);
                 $price_sell = (float) str_replace('.', '', $element->venta);
 
-                if($element->nombre === 'Blue') {
-                    $price_buy = (float) str_replace(',', '', $element->compra);
-                    $price_sell = (float) str_replace(',', '', $element->venta);
-                }
+//                if($element->nombre === 'Blue') {
+//                    $price_buy = (float) str_replace(',', '', $element->compra);
+//                    $price_sell = (float) str_replace(',', '', $element->venta);
+//                }
 
 //                dump($element->nombre, $price_buy, $price_sell);
                 $quote = new Quote();
