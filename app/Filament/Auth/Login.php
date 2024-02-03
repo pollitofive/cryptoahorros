@@ -28,6 +28,13 @@ class Login extends BaseAuth
             ->autocomplete()
             ->autofocus();
     }
+    protected function getPasswordFormComponent(): Component
+    {
+        return TextInput::make('password')
+            ->label('Password')
+            ->password()
+            ->required();
+    }
 
     protected function getCredentialsFromFormData(array $data): array
     {
