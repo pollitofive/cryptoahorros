@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('dollars', function (Blueprint $table) {
             $table->id();
             $table->string('description');
-            $table->string('category',20);
-            $table->string('key')->unique();
+            $table->string('url',100);
             $table->timestamps();
         });
     }
