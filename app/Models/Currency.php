@@ -23,7 +23,7 @@ class Currency extends Model
             if($account_by_currency->currency->symbol == 'USD') {
                 $total += $account_by_currency->amount;
             } else {
-                $total = $account_by_currency->amount / $price_buy;
+                $total += $account_by_currency->amount / $price_buy;
             }
 
         }
