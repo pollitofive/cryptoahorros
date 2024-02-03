@@ -111,7 +111,6 @@ class AccountXCoinResource extends Resource
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
-            ->join('accounts', 'accounts_x_coins.account_id', '=', 'accounts.id')
-            ->where('user_id', auth()->id());
+            ->whereHas('account', fn (Builder $query) => $query->where('user_id', auth()->id()));
     }
 }

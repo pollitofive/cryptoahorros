@@ -40,6 +40,7 @@ class AccountXCurrencyResource extends Resource
                     ->relationship('currency', 'name'),
                 Forms\Components\TextInput::make('amount')
                     ->required()
+                ->numeric()
             ]);
     }
 
@@ -117,8 +118,7 @@ class AccountXCurrencyResource extends Resource
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
-            ->join('accounts', 'accounts_x_currencies.account_id', '=', 'accounts.id')
-            ->where('user_id', auth()->id());
+            ->whereHas('account', fn (Builder $query) => $query->where('user_id', auth()->id()));
     }
 
 }
