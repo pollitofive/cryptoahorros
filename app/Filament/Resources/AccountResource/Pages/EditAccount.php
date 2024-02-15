@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\CountResource\Pages;
+namespace App\Filament\Resources\AccountResource\Pages;
 
 use App\Filament\Resources\AccountResource;
 use Filament\Actions;

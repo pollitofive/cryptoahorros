@@ -14,24 +14,20 @@ class DollarsSeeder extends Seeder
     {
         DB::table('dollars')->insert([
             'description' => 'Dolar oficial',
-            'category' => 'Capital_Federal',
-            'key' => 'casa6'
+            'url' => 'https://dolarhoy.com/cotizaciondolaroficial',
         ]);
         DB::table('dollars')->insert([
             'description' => 'Dolar blue',
-            'category' => 'Dolar',
-            'key' => 'casa380'
+            'url' => 'https://dolarhoy.com/cotizaciondolarblue',
         ]);
 
         DB::table('dollars')->insert([
             'description' => 'Dolar bolsa',
-            'category' => 'valores_principales',
-            'key' => 'casa313'
+            'url' => 'https://dolarhoy.com/cotizaciondolarbolsa'
         ]);
         DB::table('dollars')->insert([
             'description' => 'Dolar turista',
-            'category' => 'valores_principales',
-            'key' => 'casa406'
+            'url' => 'https://dolarhoy.com/cotizacion-dolar-tarjeta',
         ]);
     }
 }
