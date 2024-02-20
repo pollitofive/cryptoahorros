@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Dollar>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Coin>
  */
-class DollarFactory extends Factory
+class CurrencyFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +17,8 @@ class DollarFactory extends Factory
     public function definition(): array
     {
         return [
-            'description' => $this->faker->word,
-            'url' => $this->faker->url
+            'name' => $this->faker->currencyCode,
+            'symbol' => $this->faker->slug(4),
         ];
     }
 }
