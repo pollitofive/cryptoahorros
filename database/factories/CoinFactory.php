@@ -17,9 +17,10 @@ class CoinFactory extends Factory
     public function definition(): array
     {
         return [
-            'key' => $this->faker->uuid(),
+            'coin_key' => $this->faker->uuid(),
             'symbol' => $this->faker->lastName,
             'name' => $this->faker->name,
+            'market_cap_rank' => $this->faker->numberBetween(1,10000),
         ];
     }
 }

@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Filament\Resources\AccountXCoinxCurrencyResource\Pages;
+namespace App\Filament\Resources\AccountXCoinResource\Pages;
 
 use App\Filament\Resources\AccountXCoinResource;
 use Filament\Actions;
-use Filament\Resources\Pages\CreateRecord;
+use Filament\Resources\Pages\EditRecord;
 
-class CreateAccountXCoinxCurrency extends CreateRecord
+class EditAccountXCoin extends EditRecord
 {
     protected static string $resource = AccountXCoinResource::class;
-    protected static ?string $title = "New Coin";
+    protected static ?string $title = "Edit Coin";
+
 
     protected function getRedirectUrl(): string
     {
