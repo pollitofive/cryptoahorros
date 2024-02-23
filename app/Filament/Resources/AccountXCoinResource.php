@@ -2,7 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\AccountXCoinxCurrencyResource\Pages;
+use App\Filament\Resources\AccountXCoinResource\Pages\CreateAccountXCoin;
+use App\Filament\Resources\AccountXCoinResource\Pages\EditAccountXCoin;
+use App\Filament\Resources\AccountXCoinResource\Pages\ListAccountXCoin;
 use App\Models\Account;
 use App\Models\AccountXCoin;
 use App\Models\Coin;
@@ -28,11 +30,13 @@ class AccountXCoinResource extends Resource
                 Select::make('account_id')
                     ->label('Account')
                     ->searchable()
+                    ->required()
                     ->preload()
                     ->relationship('account', 'name', fn (Builder $query) => $query->where('user_id', auth()->id()))
                     ->createOptionForm(Account::getForm()),
                 Select::make('coin_id')
                     ->label('Coin')
+                    ->required()
                     ->searchable()
                     ->relationship('coin', 'name')
                     ->getOptionLabelFromRecordUsing(function (Coin $record) {
@@ -102,9 +106,9 @@ class AccountXCoinResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListAccountXCoinxCurrencies::route('/'),
-            'create' => Pages\CreateAccountXCoinxCurrency::route('/create'),
-            'edit' => Pages\EditAccountXCoinxCurrency::route('/{record}/edit'),
+            'index' => ListAccountXCoin::route('/'),
+            'create' => CreateAccountXCoin::route('/create'),
+            'edit' => EditAccountXCoin::route('/{record}/edit'),
         ];
     }
 

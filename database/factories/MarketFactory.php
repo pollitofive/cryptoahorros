@@ -2,12 +2,14 @@
 
 namespace Database\Factories;
 
+use App\Models\Coin;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Dollar>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Account>
  */
-class DollarFactory extends Factory
+class MarketFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +19,8 @@ class DollarFactory extends Factory
     public function definition(): array
     {
         return [
-            'description' => $this->faker->word,
-            'url' => $this->faker->url
+            'coin_id' => Coin::factory()->create(),
+            'current_price' => $this->faker->numberBetween(1,10000),
         ];
     }
 }

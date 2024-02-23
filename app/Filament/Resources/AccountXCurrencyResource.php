@@ -29,6 +29,7 @@ class AccountXCurrencyResource extends Resource
             ->schema([
                 Select::make('account_id')
                     ->label('Account')
+                    ->required()
                     ->searchable()
                     ->preload()
                     ->relationship('account', 'name', fn (Builder $query) => $query->where('user_id', auth()->id()))
@@ -36,9 +37,11 @@ class AccountXCurrencyResource extends Resource
                 Select::make('currency_id')
                     ->label('Currency')
                     ->preload()
+                    ->required()
                     ->searchable()
                     ->relationship('currency', 'name'),
                 Forms\Components\TextInput::make('amount')
+                    ->numeric()
                     ->required()
                 ->numeric()
             ]);

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Account::class);
             $table->foreignIdFor(Currency::class)->nullable();
-            $table->decimal('amount', 20, 8);
+            $table->decimal('amount', 20, 2);
             $table->timestamps();
             $table->softDeletes();
         });

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Filament\Resources\AccountXCoinxCurrencyResource\Pages;
+namespace App\Filament\Resources\AccountXCoinResource\Pages;
 
 use App\Filament\Resources\AccountXCoinResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
-class ListAccountXCoinxCurrencies extends ListRecords
+class ListAccountXCoin extends ListRecords
 {
     protected static string $resource = AccountXCoinResource::class;
 

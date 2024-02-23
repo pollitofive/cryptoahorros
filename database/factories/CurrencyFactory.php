@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Coin>
  */
-class CoinFactory extends Factory
+class CurrencyFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,10 +17,8 @@ class CoinFactory extends Factory
     public function definition(): array
     {
         return [
-            'coin_key' => $this->faker->uuid(),
-            'symbol' => $this->faker->lastName,
-            'name' => $this->faker->name,
-            'market_cap_rank' => $this->faker->numberBetween(1,10000),
+            'name' => $this->faker->currencyCode,
+            'symbol' => $this->faker->slug(4),
         ];
     }
 }
