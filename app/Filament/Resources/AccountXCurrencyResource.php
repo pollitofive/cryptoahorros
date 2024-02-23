@@ -41,6 +41,7 @@ class AccountXCurrencyResource extends Resource
                     ->searchable()
                     ->relationship('currency', 'name'),
                 Forms\Components\TextInput::make('amount')
+                    ->numeric()
                     ->required()
                 ->numeric()
             ]);
