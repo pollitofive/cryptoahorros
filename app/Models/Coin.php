@@ -16,7 +16,7 @@ class Coin extends Model
 
     public function markets(): HasMany
     {
-        return $this->hasMany(Market::class)->orderBy('created_at','desc');
+        return $this->hasMany(Market::class)->orderBy('created_at','desc')->limit(1);
     }
 
     public function getCurrentPriceAttribute(): string
