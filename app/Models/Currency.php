@@ -19,13 +19,13 @@ class Currency extends Model
             ->where('user_id',auth()->id())
             ->get();
         $total = 0;
-        $price_buy = Quote::select('price_buy')->where('dollar_id',2)->orderBy('created_at','desc')->first()->price_buy;
+
         foreach($accounts_by_currency as $account_by_currency) {
 
             if($account_by_currency->currency->symbol == 'USD') {
                 $total += $account_by_currency->amount;
             } else {
-                $total += $account_by_currency->amount / $price_buy;
+                $total += $account_by_currency->amount / auth()->user()->price_dollar_selected;
             }
 
         }

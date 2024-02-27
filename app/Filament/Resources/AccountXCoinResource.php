@@ -21,7 +21,7 @@ class AccountXCoinResource extends Resource
 {
     protected static ?string $model = AccountXCoin::class;
     protected static ?string $label = "My Coins";
-    protected static ?string $navigationIcon = 'heroicon-o-currency-dollar';
+    protected static ?string $navigationIcon = 'heroicon-o-circle-stack';
 
     public static function form(Form $form): Form
     {

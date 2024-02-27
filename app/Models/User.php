@@ -6,6 +6,8 @@ namespace App\Models;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -49,5 +51,15 @@ class User extends Authenticatable implements FilamentUser
     public function canAccessPanel(Panel $panel): bool
     {
         return true;
+    }
+
+    public function dollar(): BelongsTo
+    {
+        return $this->belongsTo(Dollar::class, 'dollar_selected', 'id');
+    }
+
+    public function getPriceDollarSelectedAttribute(): string
+    {
+        return $this->dollar->current_price()->{$this->compra_venta};
     }
 }

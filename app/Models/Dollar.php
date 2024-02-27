@@ -11,4 +11,9 @@ class Dollar extends Model
     protected $fillable = [
         'description','key','category'
     ];
+
+    public function current_price(): Quote
+    {
+        return Quote::getCurrentPriceByDollar($this->id);
+    }
 }

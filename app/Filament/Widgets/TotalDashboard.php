@@ -16,9 +16,8 @@ class TotalDashboard extends BaseWidget
     }
     protected function getStats(): array
     {
-        $price_buy = Quote::getCurrentPriceByDollar(2)->price_buy;
         $total_in_dollars = (float) Coin::getSumAmountByPriceOfCoin() + (float) Currency::getSumInDollars();
-        $total_in_ars = $total_in_dollars * $price_buy;
+        $total_in_ars = $total_in_dollars * auth()->user()->price_dollar_selected;
 
         return [
             Stat::make('Total sum in USD', "USD " . number_format($total_in_dollars,2)),

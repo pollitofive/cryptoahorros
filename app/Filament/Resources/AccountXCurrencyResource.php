@@ -66,18 +66,17 @@ class AccountXCurrencyResource extends Resource
                     ->tooltip(function($record)
                     {
                         if($record->currency->symbol == 'AR$') {
-                            return "For exchange, we use Dolar Blue Compra";
+                            return "For exchange, you are using " . auth()->user()->dollar->description;
                         }
 
                         return "";
                     })
                     ->state(function (AccountXCurrency $record): string  {
-                        $price_buy = Quote::getCurrentPriceByDollar(2)->price_buy;
                         if($record->currency->symbol == 'USD') {
                             return 'USD ' . number_format($record->amount,2);
                         }
 
-                        return 'USD ' . number_format($record->amount / $price_buy,2);
+                        return 'USD ' . number_format($record->amount / auth()->user()->price_dollar_selected,2);
                     })
                     ->numeric()
                     ->alignRight()

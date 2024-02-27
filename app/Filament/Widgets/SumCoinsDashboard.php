@@ -18,9 +18,8 @@ class SumCoinsDashboard extends BaseWidget
 
     protected function getStats(): array
     {
-        $price_buy = Quote::getCurrentPriceByDollar(2)->price_buy;
         $total_coins_in_dollars = Coin::getSumAmountByPriceOfCoin();
-        $total_coins_in_ars = $total_coins_in_dollars * $price_buy;
+        $total_coins_in_ars = $total_coins_in_dollars * auth()->user()->price_dollar_selected;
         return [
             Stat::make('Total sum coins in USD', "USD " . number_format($total_coins_in_dollars,2))->extraAttributes(['class' => 'bg-neutral-50']),
             Stat::make('Total sum coins in $', "ARS " . number_format($total_coins_in_ars,2))

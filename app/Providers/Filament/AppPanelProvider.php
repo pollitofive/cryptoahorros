@@ -56,4 +56,6 @@ class AppPanelProvider extends PanelProvider
                 Authenticate::class,
             ]);
     }
+
+
 }

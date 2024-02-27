@@ -23,6 +23,8 @@ class UserFactory extends Factory
             'username' => fake()->unique()->userName(),
             'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
+            'dollar_selected' => 2,
+            'compra_venta' => 'price_buy',
         ];
     }
 
