@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('markets', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\Coin::class);
-            $table->double("current_price", 8, 2);
+            $table->decimal('current_price', 13, 6);
             $table->timestamps();
         });
     }
