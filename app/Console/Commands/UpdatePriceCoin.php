@@ -43,7 +43,7 @@ class UpdatePriceCoin extends Command
         $url = "https://api.coingecko.com/api/v3/simple/price?ids=$string_coins&vs_currencies=usd";
         $response = Http::withoutVerifying()->get($url);
         foreach($coins as $coin) {
-            if($response->json()[$coin->coin_key]['usd']) {
+            if(isset($response->json()[$coin->coin_key]['usd'])) {
                 $coin_x_price = new Market();
                 $coin_x_price->coin_id = $coin->id;
                 $coin_x_price->current_price = $response->json()[$coin->coin_key]['usd'];
