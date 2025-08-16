@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Connectors\API\CoingeckoCoinPriceService;
 use App\Connectors\API\DolarHoyPriceService;
+use App\Connectors\Contracts\CoinPriceInterface;
 use App\Connectors\Contracts\DollarPriceInterface;
 use Filament\Support\Colors\Color;
 use Filament\Support\Facades\FilamentColor;
@@ -17,6 +19,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         app()->bind(DollarPriceInterface::class,DolarHoyPriceService::class);
+        app()->bind(CoinPriceInterface::class,CoingeckoCoinPriceService::class);
     }
 
     /**
